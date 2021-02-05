@@ -2,8 +2,6 @@
 
 set -ex
 
-REGISTRY=default-route-openshift-image-registry.apps.cloud.xana.du:443
-
 FULL="${1:-false}"
 
 if [[ $FULL == 'true' ]]; then
