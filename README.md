@@ -9,7 +9,7 @@ Run a DaemonSet on your cluster to gather those metrics and ship off to your own
 
 ## Details
 
-This repo contains tools to build a container image with collectd with the sensors plug-in, along with a custom script to pull S.M.A.R.T. date from an NVMe drive. It also has some YAML to setup the DaemonSet to run on all the nodes of your cluster. Works fine on OpenShift. Possibly also fine on vanilla kubernetes.
+This repo contains tools to build a container image with collectd along with the sensors plug-in, plus a custom script to pull S.M.A.R.T. data from an NVMe drive. It also has some YAML to setup the DaemonSet to run on all the nodes of your cluster. Works fine on OpenShift. Possibly also fine on vanilla kubernetes.
 
 ## Usage
 
