@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: bare-metal-sensors
+  namespace: bare-metal-sensors
+  labels:
+    app: bare-metal-sensors
+spec:
+  selector:
+    matchLabels:
+      name: bare-metal-sensors
+  template:
+    metadata:
+      labels:
+        name: bare-metal-sensors
+        app: bare-metal-sensors
+    spec:
+      serviceAccountName: bare-metal-sensors
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      containers:
+      - name: bare-metal-sensors
+        image: quay.io/dcritch/bms:latest
+        #image: image-registry.openshift-image-registry.svc.cluster.local:5000/bare-metal-sensors/bms:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+        command: [
+          "/opt/collectd-wrapper.sh",
+        ]
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts:
+          - name: collectd-config-include
+            mountPath: /etc/collectd.d
+          - name: rootfs
+            mountPath: /rootfs
+        env:
+          - name: HOSTNAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+      terminationGracePeriodSeconds: 5
+      volumes:
+        - name: collectd-config-include
+          configMap:
+            name: collectd-config-include
+        - name: rootfs
+          hostPath:
+            path: /
+            type: ""
+      updateStrategy:
+      rollingUpdate:
+        maxUnavailable: 100%
+      type: RollingUpdate

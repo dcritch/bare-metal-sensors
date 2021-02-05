@@ -1,0 +1,2 @@
+Cmnd_Alias NVME = /usr/sbin/nvme
+nvme-sensors  ALL=(ALL)       NOPASSWD: NVME
