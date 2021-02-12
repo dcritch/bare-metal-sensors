@@ -24,3 +24,7 @@ oc apply -f yaml/daemon-set.yml
 ~~~
 
 If you're not running InfluxDB, play around with the configmap to suit your purposes and have at it.
+
+## Screenshot
+
+![alt text](https://raw.githubusercontent.com/dcritch/bare-metal-sensors/main/img/openshift_temperatures.png "Grafana Screenshot")
